@@ -1,32 +1,128 @@
-# Retinal-OCT-Images
-to detect and classify human diseases from medical images.
+# **Retinal OCT Image Classification using DenseNet**
 
-<h2> Description </h2>
+---
 
-The dataset is organized into 3 folders (train, test, val) and contains subfolders for each image category (NORMAL,CNV,DME,DRUSEN). There are 84,495 X-Ray images (JPEG) and 4 categories (NORMAL,CNV,DME,DRUSEN).
+## **Project Overview**
 
-Images are labeled as (disease)-(randomized patient ID)-(image number by this patient) and split into 4 directories: CNV, DME, DRUSEN, and NORMAL.
+This project focuses on **Retinal OCT (Optical Coherence Tomography) Image Classification** using the **DenseNet** architecture. OCT imaging is an essential tool for diagnosing various retinal diseases such as *Normal*, *Drusen*, *Cataract*, and *Diabetic Macular Edema (DME)*. By leveraging **DenseNet** and transfer learning, this project aims to accurately classify OCT images into relevant categories.
 
-Optical Coherence Tomography (OCT) images are high-resolution cross-sectional images of the retina, commonly used for diagnosing eye conditions like Diabetic Macular Edema (DME), Choroidal Neovascularization (CNV), and Drusen. In this project, OCT images are classified into four categories: CNV, DME, DRUSEN, and NORMAL. The model leverages deep learning, specifically MobileNetV2, to accurately classify these images, helping in early diagnosis and treatment planning for retinal diseases.
+---
 
-<h2> Source / useful links </h2>
+## **Project Objectives**
 
-DataSource : https://www.kaggle.com/paultimothymooney/kermany2018 <br>
-Citation : http://www.cell.com/cell/fulltext/S0092-8674(18)30154-5
+1. Build and train a **DenseNet-based Convolutional Neural Network** for OCT image classification.
+2. Improve model performance using **transfer learning** and **data augmentation**.
+3. Evaluate the model's performance using metrics such as **accuracy, precision, recall, and F1 score**.
+4. Visualize model predictions and explain results using **Grad-CAM**.
+5. Provide a deployable model for real-world OCT classification tasks.
 
-<h3> Type of Machine Learning Problem</h3>
+---
 
-<p> It is a one class classification problem, for a given image we need to predict if they are suffering from which disease. </p>
+## **Technologies and Tools Used**
+
+- **Python**: Programming Language
+- **TensorFlow/Keras**: Model building, training, and evaluation
+- **NumPy, Pandas**: Data manipulation and preprocessing
+- **Matplotlib, Seaborn**: Visualization of results and model performance
+- **OpenCV**: Image processing
+- **Grad-CAM**: Model explainability visualization
+- **Flask**: Backend deployment for web interface
+- **Jupyter Notebook**: Development environment for iterative coding
+- **HDF5**: Model saving format
+- **Postman**: API testing for deployment
+
+---
+
+## **Dataset**
+
+The **Retinal OCT dataset** used in this project contains images categorized into the following classes:
+1. **Normal**  
+2. **Drusen**  
+3. **Cataract**  
+4. **DME**  
+
+### **Preprocessing**:
+- Image resizing to a consistent resolution (e.g., 224x224).
+- Normalization of pixel values.
+- Splitting into **train**, **validation**, and **test** sets.
+
+---
+
+## **Model Architecture**
+
+The project uses **DenseNet** (Dense Convolutional Network), a deep learning model that connects each layer to every other layer to improve feature reuse and reduce overfitting.
+
+- **Key Features**:
+  - Pre-trained DenseNet model (e.g., DenseNet121 on ImageNet) for transfer learning.
+  - Custom classification head to match the number of classes (softmax activation).
+  - Optimization using **Adam Optimizer**.
+  - Use of **EarlyStopping** and **ModelCheckpoint** callbacks for better training control.
+
+---
+
+## **Project Workflow**
+
+### 1. **Data Preparation**
+- Image resizing, normalization, and splitting into train/validation/test sets.
+- Data augmentation for improving generalization.
+
+### 2. **Model Building**
+- Loaded pre-trained DenseNet model.
+- Added custom layers for classification.
+- Configured the model for training.
+
+### 3. **Training**
+- Trained the model using augmented data.
+- Monitored accuracy and loss with callbacks.
+
+### 4. **Evaluation**
+- Evaluated on the test set with metrics like accuracy, precision, recall, and F1 score.
+- Generated confusion matrix and ROC curve for deeper analysis.
+
+### 5. **Model Explainability**
+- Applied **Grad-CAM** to visualize the regions in the OCT images where the model focused during predictions.
+
+### 6. **Deployment**
+- Deployed the trained model using Flask for real-time image classification.
+
+---
+
+## **Performance Metrics**
+
+- **Accuracy**: Achieved high accuracy on test data.  
+- **F1-Score**: Ensured balanced performance across all classes.  
+- **Confusion Matrix**: Visualized the performance of the model per class.  
+- **ROC Curve**: Analyzed the trade-off between true positives and false positives.  
+
+---
+
+## **Challenges Faced**
+
+1. **Dataset Imbalance**: Classes with fewer samples led to biased predictions.
+   - *Solution*: Used weighted loss functions and data augmentation.
+
+2. **High Computational Load**: Training DenseNet on OCT images is resource-intensive.
+   - *Solution*: Utilized GPU acceleration.
+
+3. **Interpretability**: Understanding predictions was challenging.
+   - *Solution*: Implemented Grad-CAM to explain model decisions.
+
+4. **Deployment Integration**: Linking the model with a web interface required debugging API calls.
+   - *Solution*: Used Flask and Postman to streamline the deployment process.
+
+---
+
+## **Results and Visualizations**
+
+1. **Confusion Matrix**: Displays per-class performance.
+2. **Grad-CAM Visualization**: Highlights areas in the image critical for the model’s decision-making.
+
+---
+
+## **Future Enhancements**
+
+- Incorporate attention mechanisms to further improve accuracy.
+- Add a feedback loop for active learning to refine predictions.
+- Extend the model to handle additional eye diseases.
 
 
-<h3> How does it work ? </h3>
-* Understanding image data <br>
-* Image augmentation <br>
-* Applying model <br>
-
-<h3> Conclusion </h3>
-1. we applied image augmentation to this dataset.<br>
-2. we applied the model - MobileNetV2. <br>
-3. we have taken the weight of every model which is trained on imagenet dataset, we have not freezed the layer because the retina dataset is different from imagenet dataset.<br>
-4. we used confusion matrix because dataset is imbalanced and so accuracy score may not give good sence of result.<br>
-5. By seeing the confusion matrix of all the three model we can say that inception net has best recall  than other model, precision is also good for inception net.
